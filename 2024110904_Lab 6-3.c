@@ -6,23 +6,27 @@ char *input, *output;
 
 void compress(char *input, char *output){
     int count=1;
-    int sum=0, index=1;
+    struct Index{
+        int sum;
+        int index;
+    }inx;
+    inx.sum=0, inx.index=1;
     for(int i=1; i<strlen(input); i++){
         if(i==1 && input[i]!=input[i-1]){
-            output[sum]='1';
-            output[index]=input[i-1];
-            sum+=2, index+=2;
+            output[inx.sum]='1';
+            output[inx.index]=input[i-1];
+            inx.sum+=2, inx.index+=2;
         }
         else if(input[i]!=input[i-1]){
-            output[sum]=count+'0';
-            output[index]=input[i-1];
-            count=1, sum+=2, index+=2;
+            output[inx.sum]=count+'0';
+            output[inx.index]=input[i-1];
+            count=1, inx.sum+=2, inx.index+=2;
         }
         else count++;
     }
-    output[sum]=count+'0';
-    output[index]=input[strlen(input)-1];
-    output[index+1]='\0';
+    output[inx.sum]=count+'0';
+    output[inx.index]=input[strlen(input)-1];
+    output[inx.index+1]='\0';
 }
 
 int main(){
