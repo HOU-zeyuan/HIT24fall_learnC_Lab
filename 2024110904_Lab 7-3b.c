@@ -25,18 +25,18 @@ void swap(Event *a, Event *b){
 
 void three_qsort1(int left, int right){
     if(left>=right) return;
-    int l=left, r=right, mid=l+(r-l)/2;
+    int l=left, r=right, mid=event[l+(r-l)/2].begin_hour;
     int i=l;
     while(i<=r){
-        if(event[i].begin_hour<event[mid].begin_hour)  swap(&event[i++], &event[l++]);
-        else if(event[i].begin_hour>event[mid].begin_hour)  swap(&event[i], &event[r--]);
+        if(event[i].begin_hour<mid)  swap(&event[i++], &event[l++]);
+        else if(event[i].begin_hour>mid)  swap(&event[i], &event[r--]);
         else i++;
     }
     three_qsort1(left, l-1);
     three_qsort1(r+1, right);
 }
 
-void solve(struct Event *event, int len){
+void solve(Event *event, int len){
     three_qsort1(0, len-1);
 
     int latest=event[0].end_hour;

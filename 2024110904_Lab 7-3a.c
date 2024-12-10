@@ -25,11 +25,11 @@ void swap(Event *a, Event *b){
 
 void three_qsort1(int left, int right){
     if(left>=right) return;
-    int l=left, r=right, mid=l+(r-l)/2;
+    int l=left, r=right, mid=event[l+(r-l)/2].begin_hour;
     int i=l;
     while(i<=r){
-        if(event[i].begin_hour<event[mid].begin_hour)  swap(&event[i++], &event[l++]);
-        else if(event[i].begin_hour>event[mid].begin_hour)  swap(&event[i], &event[r--]);
+        if(event[i].begin_hour<mid)  swap(&event[i++], &event[l++]);
+        else if(event[i].begin_hour>mid)  swap(&event[i], &event[r--]);
         else i++;
     }
     three_qsort1(left, l-1);
@@ -38,18 +38,18 @@ void three_qsort1(int left, int right){
 
 void three_qsort2(int left, int right){
     if(left>=right) return;
-    int l=left, r=right, mid=l+(r-l)/2;
+    int l=left, r=right, mid=event[l+(r-l)/2].end_hour;
     int i=l;
     while(i<=r){
-        if(event[i].end_hour<event[mid].end_hour)  swap(&event[i++], &event[l++]);
-        else if(event[i].end_hour>event[mid].end_hour)  swap(&event[i], &event[r--]);
+        if(event[i].end_hour<mid)  swap(&event[i++], &event[l++]);
+        else if(event[i].end_hour>mid)  swap(&event[i], &event[r--]);
         else i++;
     }
     three_qsort2(left, l-1);
     three_qsort2(r+1, right);
 }
 
-void printEvent(struct Event *event, int len){
+void printEvent(Event *event, int len){
     three_qsort1(0, len-1);
 
     int *arr, inx=0;
